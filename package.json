@@ -1,0 +1,27 @@
+{
+  "name": "database-library-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nkocjan/database-library-project.git"
+  },
+  "author": "Nikodem Kocjan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nkocjan/database-library-project/issues"
+  },
+  "homepage": "https://github.com/nkocjan/database-library-project#readme",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "ejs": "^3.1.10",
+    "express": "^4.21.1",
+    "mongoose": "^8.8.0",
+    "nodemon": "^3.1.7",
+    "path": "^0.12.7"
+  }
+}
