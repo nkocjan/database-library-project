@@ -1,0 +1,14 @@
+.login-box {
+  text-align: center;
+  border: 1px solid wheat;
+  border-radius: 20px;
+}
+
+input {
+  margin-left: 10px;
+  border-radius: 10px;
+}
+
+button {
+  border-radius: 10px;
+}

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  res.render("main", { title: "Strona główna", cssFile: "main.css" });
+  res.render("reservation", { title: "Zarezerwuj książkę" });
 });
 
 module.exports = router;
