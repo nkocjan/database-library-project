@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <%- include('../templates/header') %>
+  <body>
+    <%- include('../templates/navbar') %>
+    <div class="container-lg">
+      <div class="row">
+        <div class="col-3 sidebar-menu">
+          Menu: 
+          <ul>
+            <li class="sidebar-menu-item"><a href="/admin/book">Lista książek</a></li>
+            <li class="sidebar-menu-item"><a href="/admin/author">Lista autorów</a></li>
+            <li class="sidebar-menu-item"><a href="/admin/category">Kategorie</a></li>
+            <li class="sidebar-menu-item"><a href="/admin/users">Lista użytkowników</a></li>
+            <li class="sidebar-menu-item" style="background-color: wheat;"><a href="/admin/add-book">Dodaj książkę</a></li>
+            <li class="sidebar-menu-item"><a href="/admin/add-author">Dodaj autora</a></li>
+            <li class="sidebar-menu-item"><a href="/admin/add-user">Dodaj nowego użytkownika</a></li>
+            <li class="sidebar-menu-item"><a href="/logout">Wyloguj się</a></li>
+          </ul>
+        </div>        
+        <div class="col-9 login-box">
+          <form>
+            <div class="row">
+              <div class="col-12 mt-4">
+                <label>Podaj tytuł</label>
+                <input>
+              </div>
+
+              <div class="col-12 mt-4">
+                <label>Wybierz autora</label>
+                <select name="autor" required>
+                  <option value="">-- Wybierz autora --</option>
+                  <% autorzy.forEach(autor => { %>
+                    <option value="<%= autor.id %>"><%= autor.imie %> <%= autor.nazwisko %></option>
+                  <% }) %>
+                </select>
+              </div>
+              
+              <div class="col-12 mt-4">
+                <label>Wybierz kategorię</label>
+                <select name="kategoria" required>
+                  <option value="">-- Wybierz kategorię --</option>
+                  <% kategorie.forEach(kategoria => { %>
+                    <option value="<%= kategoria.nazwa %>"><%= kategoria.nazwa %></option>
+                  <% }) %>
+                </select>
+              </div>
+              
+              <div class="col-12 mt-4">
+                <label>Wybierz bibliotekę</label>
+                <select name="biblioteka" required>
+                  <option value="">-- Wybierz bibliotekę --</option>
+                  <% biblioteki.forEach(biblioteka => { %>
+                    <option value="<%= biblioteka.id %>"><%= biblioteka.miejscowosc %></option>
+                  <% }) %>
+                </select>
+              </div>
+
+              <div class="col-12 mt-4">
+                <label>Podaj rok wydania</label>
+                <input>
+              </div>
+
+              <div class="col-12 mt-4">
+                <button type="submit">Dodaj książkę</button>
+              </div>
+            </div>
+          </form>
+        </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <%- include('templates/header') %>
+  <body>
+    <%- include('templates/navbar') %>
+    <div class="container-lg mt-5">
+      <div class="row">
+        <div class="col-9 authors-table">
+          <div class="col-12 filter-section">
+            <form class="filter-form">
+              <div class="filter-inputs">
+                <input type="text" placeholder="Tytuł" id="filtr_tytul" name="filtr_tytul">
+                <input type="text" placeholder="Autor" id="filtr_autor" name="filtr_autor">
+              </div>
+          
+              <div class="filter-checkboxes">
+                <h5 class="filter-label">Kategorie:</h5>
+                <% kategorie.forEach(kategoria => { %>
+                  <div class="checkbox-item">
+                    <input type="checkbox" id="kategoria_<%= kategoria.id %>" name="kategorie" value="<%= kategoria.id %>">
+                    <label for="kategoria_<%= kategoria.id %>"><%= kategoria.nazwa %></label>
+                  </div>
+                <% }) %>
+              </div>
+          
+              <div class="filter-sorting">
+                <label for="sortowanie">Sortuj według:</label>
+                <select id="sortowanie" name="sortowanie">
+                  <option value="tytul">Tytuł</option>
+                  <option value="autor">Autor</option>
+                  <option value="rok_wydania">Rok wydania</option>
+                  <option value="kategoria">Kategoria</option>
+                </select>
+              </div>
+          
+              <div class="filter-availability">
+                <label>Wyświetl tylko dostępne:</label>
+                <label>
+                  <input type="radio" name="dostepne" value="tak"> Tak
+                </label>
+                <label>
+                  <input type="radio" name="dostepne" value="nie" checked> Nie
+                </label>
+              </div>
+          
+              <div class="filter-button">
+                <button type="submit">Filtruj książki</button>
+              </div>
+            </form>
+          </div>
+          <table border="1" class="tabelka">
+            <thead>
+              <tr>
+                <th>Lp.</th>
+                <th>Tytuł</th>
+                <th>Rok wydania</th>
+                <th>Kategoria</th>
+                <th>Autor</th>
+                <th>Dostępne / Wszystkie</th>
+                <th>Biblioteka</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% ksiazki.forEach((ksiazka, index) => { %>
+                <tr>
+                  <td><%= index + 1 %></td>
+                  <td><%= ksiazka.tytul %></td>
+                  <td><%= ksiazka.rok_wydania %></td>
+                  <td><%= ksiazka.kategoria %></td>
+                  <td><%= ksiazka.autor %></td>
+                  <td><%= ksiazka.dostepne %> / <%= ksiazka.wszystkie %></td>
+                  <td><%= ksiazka.biblioteka %></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-3">
+          <div class="row take-box">
+            <h3>Wypożycz książkę</h3>
+            <form>
+              <div class="row">
+                <div class="col-12 mt-4">
+                  <label for="imie">Podaj imię</label> <br/>
+                  <input type="text" id="imie" name="imie">
+                </div>
+  
+                <div class="col-12 mt-4">
+                  <label for="nazwisko">Podaj nazwsiko</label><br/>
+                  <input type="text" id="nazwsiko" name="nazwsiko">
+                </div>
+  
+                <div class="col-12 mt-4">
+                  <label>Podaj numer karty bibliotecznej</label><br/>
+                  <input type="text" id="nr_karty_bibliotecznej" name="nr_karty_bibliotecznej">
+                </div>
+
+                <div class="col-12 mt-4">
+                  <label>Podaj kod książki</label><br/>
+                  <input type="text" id="kod_ksiazki" name="kod_ksiazki">
+                </div>
+  
+                <div class="col-12 mt-4 mb-4">
+                  <button type="submit">Zatwierdź</button>
+                </div>
+              </div>
+            </form>
+            <form>
+              <button type="submit">Wyświetl moje wypożyczenia</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

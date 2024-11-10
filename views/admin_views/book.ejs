@@ -1,0 +1,101 @@
+</html>
+<!DOCTYPE html>
+<html lang="pl">
+  <%- include('../templates/header') %>
+  <body>
+    <%- include('../templates/navbar') %>
+    <div class="container-lg">
+      <div class="row">
+        <div class="col-3 sidebar-menu">
+          Menu: 
+          <ul>
+            <li class="sidebar-menu-item" style="background-color: wheat;"><a href="/admin/book">Lista książek</a></li>
+            <li class="sidebar-menu-item"><a href="/admin/author">Lista autorów</a></li>
+            <li class="sidebar-menu-item"><a href="/admin/category">Kategorie</a></li>
+            <li class="sidebar-menu-item"><a href="/admin/users">Lista użytkowników</a></li>
+            <li class="sidebar-menu-item"><a href="/admin/add-book">Dodaj książkę</a></li>
+            <li class="sidebar-menu-item"><a href="/admin/add-author">Dodaj autora</a></li>
+            <li class="sidebar-menu-item"><a href="/admin/add-user">Dodaj nowego użytkownika</a></li>
+            <li class="sidebar-menu-item"><a href="/logout">Wyloguj się</a></li>
+          </ul>
+        </div>        
+        <div class="col-9">
+          <div class="row">
+            <div class="col-12">
+              <h3>Lista książek</h3>
+            </div>
+            <div class="col-12 filter-section">
+              <form class="filter-form">
+                <div class="filter-inputs">
+                  <input type="text" placeholder="Tytuł" id="filtr_tytul" name="filtr_tytul">
+                  <input type="text" placeholder="Autor" id="filtr_autor" name="filtr_autor">
+                </div>
+            
+                <div class="filter-checkboxes">
+                  <h5 class="filter-label">Kategorie:</h5>
+                  <% kategorie.forEach(kategoria => { %>
+                    <div class="checkbox-item">
+                      <input type="checkbox" id="kategoria_<%= kategoria.id %>" name="kategorie" value="<%= kategoria.id %>">
+                      <label for="kategoria_<%= kategoria.id %>"><%= kategoria.nazwa %></label>
+                    </div>
+                  <% }) %>
+                </div>
+            
+                <div class="filter-sorting">
+                  <label for="sortowanie">Sortuj według:</label>
+                  <select id="sortowanie" name="sortowanie">
+                    <option value="tytul">Tytuł</option>
+                    <option value="autor">Autor</option>
+                    <option value="rok_wydania">Rok wydania</option>
+                    <option value="kategoria">Kategoria</option>
+                  </select>
+                </div>
+            
+                <div class="filter-availability">
+                  <label>Wyświetl tylko dostępne:</label>
+                  <label>
+                    <input type="radio" name="dostepne" value="tak"> Tak
+                  </label>
+                  <label>
+                    <input type="radio" name="dostepne" value="nie" checked> Nie
+                  </label>
+                </div>
+            
+                <div class="filter-button">
+                  <button type="submit">Filtruj książki</button>
+                </div>
+              </form>
+            </div>
+            
+            <div class="col-12 authors-table">
+              <table border="1" class="tabelka">
+                <thead>
+                  <tr>
+                    <th>Lp.</th>
+                    <th>Tytuł</th>
+                    <th>Rok wydania</th>
+                    <th>Kategoria</th>
+                    <th>Autor</th>
+                    <th>Dostępne / Wszystkie</th>
+                    <th>Biblioteka</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% ksiazki.forEach((ksiazka, index) => { %>
+                    <tr>
+                      <td><%= index + 1 %></td>
+                      <td><%= ksiazka.tytul %></td>
+                      <td><%= ksiazka.rok_wydania %></td>
+                      <td><%= ksiazka.kategoria %></td>
+                      <td><%= ksiazka.autor %></td>
+                      <td><%= ksiazka.dostepne %> / <%= ksiazka.wszystkie %></td>
+                      <td><%= ksiazka.biblioteka %></td>
+                    </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            </div>
+        </div>
+    </div>
+  </body>
+</html>

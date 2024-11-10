@@ -1,0 +1,141 @@
+.tabelka {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tabelka th, .tabelka td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.tabelka th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.tabelka tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.tabelka tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.tabelka tr:hover {
+  background-color: #e2e2e2;
+}
+
+/* Styl formularza filtrów */
+.filter-section {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.filter-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 20px;
+  border: 1px solid #e1e1e1;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.filter-inputs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filter-inputs input {
+  padding: 5px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  width: 100px;
+  height: 30px;
+}
+
+.filter-checkboxes {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filter-checkboxes h5 {
+  margin: 0;
+  font-weight: normal; /* Usunięto pogrubienie */
+}
+
+.checkbox-item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.checkbox-item input {
+  margin-right: 5px;
+}
+
+.filter-sorting {
+  display: flex;
+  align-items: center;
+}
+
+.filter-sorting select {
+  padding: 5px;
+  border-radius: 5px;
+  margin-left: 5px;
+}
+
+.filter-availability {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.filter-availability label {
+  margin: 0;
+}
+
+.filter-button {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 10px;
+}
+
+.filter-button button {
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.filter-button button:hover {
+  background-color: #0056b3;
+}
+
+.col-9 {
+  margin-left: 20%;
+  padding: 20px;
+}
+
+input {
+  margin-left: 10px;
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+button {
+  border-radius: 10px;
+}
+
+form {
+  text-align: center;
+}

@@ -57,7 +57,7 @@ const kategorie = [
 ];
 
 router.get("/", (req, res) => {
-  res.render("admin_views/book", { title: "Książki", cssFile: 'admin_book.css', ksiazki: ksiazki, kategorie: kategorie });
+  res.render("books", { title: "Przeglądaj książki", cssFile: 'books.css', kategorie, ksiazki });
 });
 
 module.exports = router;

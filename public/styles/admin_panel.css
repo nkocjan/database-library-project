@@ -1,4 +1,4 @@
-.register-box {
+.new-user-box {
   text-align: center;
   border: 1px solid wheat;
   border-radius: 20px;
@@ -11,4 +11,12 @@ input {
 
 button {
   border-radius: 10px;
+}
+
+h3 {
+  margin-top: 30px;
+}
+.col-9 {
+  margin-left: 20%;
+  padding: 20px;
 }

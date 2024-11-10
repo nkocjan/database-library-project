@@ -1,0 +1,65 @@
+</html>
+<!DOCTYPE html>
+<html lang="pl">
+  <%- include('../templates/header') %>
+  <body>
+    <%- include('../templates/navbar') %>
+    <div class="container-lg">
+      <div class="row">
+        <div class="col-3 sidebar-menu">
+          Menu: 
+          <ul>
+            <li class="sidebar-menu-item"><a href="/admin/book">Lista książek</a></li>
+            <li class="sidebar-menu-item"><a href="/admin/author">Lista autorów</a></li>
+            <li class="sidebar-menu-item" style="background-color: wheat;"><a href="/admin/category">Kategorie</a></li>
+            <li class="sidebar-menu-item"><a href="/admin/users">Lista użytkowników</a></li>
+            <li class="sidebar-menu-item"><a href="/admin/add-book">Dodaj książkę</a></li>
+            <li class="sidebar-menu-item"><a href="/admin/add-author">Dodaj autora</a></li>
+            <li class="sidebar-menu-item"><a href="/admin/add-user">Dodaj nowego użytkownika</a></li>
+            <li class="sidebar-menu-item"><a href="/logout">Wyloguj się</a></li>
+          </ul>
+        </div>
+        <div class="col-9"> `
+          <div class="row">
+            <div class="col-12">
+              <h3>Lista kategorii</h3>
+            </div>
+            <div class="col-8">
+              <table border="1" class="tabelka">
+                <thead>
+                  <tr>
+                    <th>Lp.</th>
+                    <th>Nazwa kategorii</th>
+                    <th>Ilość książek</th>
+                    <th>Najpopularniejszy autor</th>
+                    <th>Usuń kategorię</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% kategorie.forEach((kategoria, index) => { %>
+                    <tr>
+                      <td><%= index + 1 %></td>
+                      <td><%= kategoria.nazwa %></td>
+                      <td><%= kategoria.ilosc %></td>
+                      <td><%= kategoria.autor %></td>
+                      <td><button>Delete</button></td>
+                    </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-4">
+              <h3 style="text-align: center;">Utwórz kategorie</h3>
+              <form>
+                <label for="name">Nazwa</label>
+                <input type="text" id="name" name="name">
+                <button type="submit">Zatwierdź</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </body>
+</html>

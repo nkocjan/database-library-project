@@ -1,4 +1,9 @@
-.register-box {
+.col-9 {
+  margin-left: 20%;
+  padding: 20px;
+}
+
+.login-box {
   text-align: center;
   border: 1px solid wheat;
   border-radius: 20px;
@@ -12,3 +17,4 @@ input {
 button {
   border-radius: 10px;
 }
+
