@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <%- include('templates/header') %>
+  <body>
+    <%- include('templates/navbar') %>
+    <div class="container-lg mt-1">
+      <div class="row">
+        <div class="col-9 table">
+          <div class="filter-section">
+            <form class="filter-form">
+              <div class="filter-inputs">
+                <input type="text" placeholder="Tytuł" id="filtr_tytul" name="filtr_tytul">
+                <input type="text" placeholder="Autor" id="filtr_autor" name="filtr_autor">
+                <input type="text" placeholder="Kod" id="filtr_kod" name="filtr_kod">
+              </div>
+            
+              <div class="filter-checkboxes">
+                <h5 class="filter-label">Kategorie:</h5>
+                <% kategorie.forEach(kategoria => { %>
+                  <div class="checkbox-item">
+                    <input type="checkbox" id="kategoria_<%= kategoria.id %>" name="kategorie" value="<%= kategoria.id %>">
+                    <label for="kategoria_<%= kategoria.id %>"><%= kategoria.nazwa %></label>
+                  </div>
+                <% }) %>
+              </div>
+            
+              <div class="filter-checkboxes">
+                <h5 class="filter-label">Biblioteki:</h5>
+                <% biblioteki.forEach(biblioteka => { %>
+                  <div class="checkbox-item">
+                    <input type="checkbox" id="biblioteka_<%= biblioteka.id %>" name="biblioteki" value="<%= biblioteka.id %>">
+                    <label for="biblioteka<%= biblioteka.id %>"><%= biblioteka.nazwa %></label>
+                  </div>
+                <% }) %>
+              </div>
+            
+              <div class="filter-sorting">
+                <label for="sortowanie">Sortuj według:</label>
+                <select id="sortowanie" name="sortowanie">
+                  <option value="tytul">Tytuł</option>
+                  <option value="autor">Autor</option>
+                  <option value="kategoria">Kategoria</option>
+                  <option value="biblioteka">Biblioteka</option>
+                  <option value="kod">Kod</option>
+                  <option value="data_wypozyczenia">Data wypożyczenia</option>
+                  <option value="data_zwrotu">Data zwrotu</option>
+                  <option value="data_oddania">Czy oddano</option>
+                </select>
+              </div>
+            </form>
+            
+          </div>
+          <table border="1" class="tabelka">
+            <thead>
+              <tr>
+                <th>Lp.</th>
+                <th>Tytuł</th>
+                <th>Kategoria</th>
+                <th>Autor</th>
+                <th>Biblioteka</th>
+                <th>Kod</th>
+                <th>Data wypożyczenia</th>
+                <th>Data zwrotu</th>
+                <th>Oddano</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% wypozyczenia.forEach((wypozyczenie, index) => { %>
+                <tr>
+                  <td><%= index + 1 %></td>
+                  <td><%= wypozyczenie.tytul %></td>
+                  <td><%= wypozyczenie.kategoria %></td>
+                  <td><%= wypozyczenie.autor %></td>
+                  <td><%= wypozyczenie.biblioteka %></td>
+                  <td><%= wypozyczenie.code %></td>
+                  <td><%= wypozyczenie.data_wypozyczenia %></td>
+                  <td><%= wypozyczenie.data_zwrotu %></td>
+                  <td><%= wypozyczenie.oddano %></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

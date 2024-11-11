@@ -8,7 +8,8 @@ const ksiazki = [
     autor: 'Henryk Sienkiewicz',
     dostepne: 5,
     wszystkie: 10,
-    biblioteka: 'Biblioteka Miejska w Warszawie'
+    biblioteka: 'Biblioteka Miejska w Warszawie',
+    code: 1
   },
   {
     tytul: 'Pan Tadeusz',
@@ -17,7 +18,8 @@ const ksiazki = [
     autor: 'Adam Mickiewicz',
     dostepne: 2,
     wszystkie: 8,
-    biblioteka: 'Biblioteka Narodowa w Krakowie'
+    biblioteka: 'Biblioteka Narodowa w Krakowie',
+    code: 2
   },
   {
     tytul: 'Dziady',
@@ -26,7 +28,8 @@ const ksiazki = [
     autor: 'Adam Mickiewicz',
     dostepne: 3,
     wszystkie: 6,
-    biblioteka: 'Biblioteka Uniwersytecka we Wrocławiu'
+    biblioteka: 'Biblioteka Uniwersytecka we Wrocławiu',
+    code: 3
   },
   {
     tytul: 'Lalka',
@@ -35,7 +38,8 @@ const ksiazki = [
     autor: 'Bolesław Prus',
     dostepne: 4,
     wszystkie: 9,
-    biblioteka: 'Biblioteka Publiczna w Poznaniu'
+    biblioteka: 'Biblioteka Publiczna w Poznaniu',
+    code: 4
   },
   {
     tytul: 'Quo Vadis',
@@ -44,7 +48,8 @@ const ksiazki = [
     autor: 'Henryk Sienkiewicz',
     dostepne: 6,
     wszystkie: 12,
-    biblioteka: 'Biblioteka Wojewódzka w Gdańsku'
+    biblioteka: 'Biblioteka Wojewódzka w Gdańsku',
+    code: 5
   }
 ];
 

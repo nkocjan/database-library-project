@@ -3,10 +3,38 @@
   <%- include('templates/header') %>
   <body>
     <%- include('templates/navbar') %>
-    <div class="container-fluid">
-      <div class="row"><h1>Biblioteka ABC</h1></div>
-      <div class="col-4"></div>
-      <div class="col-8"></div>
+    <div class="container-lg">
+      <div class="row">
+        <h1>Biblioteka ABC</h1>
+        <p>Wykonano przez Nikodem Kocjan jako projekt aplikacji bazodanowej korzystającej z postgre SQL. API zostało obsłużone przez Node JS, a strona klienta jest generowana z pomocą szablonów EJS.</p>
+      </div>
+      
+      <div class="row g-4">
+        <div class="col-12 col-md-4">
+          <div class="card own-card">
+            <h5>Dokumentacja</h5>
+            <p>Poniższy plik zawiera pełną dokumentację projektu. Wciśnij przycisk, aby pobrać plik PDF.</p>
+            <button>Pobierz dokumentację</button>
+          </div>
+        </div>
+    
+        <div class="col-12 col-md-4">
+          <div class="card own-card">
+            <h5>Baza danych</h5>
+            <p>Aplikacja korzysta z darmowego dostarczyciela bazy danych "tembo". W celu przetestowania działania aplikacji, należy ją najpierw obudzić, do czego dostęp ma tylko administrator. Usypiana jest po 48h braku aktywności. Dane może wprowadzać każdy mający dostęp do serwisu, dlatego poniższym przyciskiem można zresetować bazę danych do fazy początkowej.</p>
+            <button>Zresetuj bazę danych</button>
+          </div>
+        </div>
+    
+        <div class="col-12 col-md-4">
+          <div class="card own-card">
+            <h5>Instrukcja</h5>
+            <p>Poniższy plik zawiera krótką instrukcję w jaki sposób poruszać się po serwisie, aby zbadać wszystkie jego możliwości.</p>
+            <button>Pobierz instrukcję</button>
+          </div>
+        </div>
+      </div>
     </div>
+    
   </body>
 </html>
