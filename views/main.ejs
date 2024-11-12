@@ -3,6 +3,7 @@
   <%- include('templates/header') %>
   <body>
     <%- include('templates/navbar') %>
+    <%- include('templates/toast') %>
     <div class="container-lg">
       <div class="row">
         <h1>Biblioteka ABC</h1>
@@ -22,7 +23,7 @@
           <div class="card own-card">
             <h5>Baza danych</h5>
             <p>Aplikacja korzysta z darmowego dostarczyciela bazy danych "tembo". W celu przetestowania działania aplikacji, należy ją najpierw obudzić, do czego dostęp ma tylko administrator. Usypiana jest po 48h braku aktywności. Dane może wprowadzać każdy mający dostęp do serwisu, dlatego poniższym przyciskiem można zresetować bazę danych do fazy początkowej.</p>
-            <button>Zresetuj bazę danych</button>
+            <form method="post" action="/resetDataBase"><button>Zresetuj bazę danych</button></form>
           </div>
         </div>
     
@@ -34,7 +35,6 @@
           </div>
         </div>
       </div>
-    </div>
-    
+
   </body>
 </html>

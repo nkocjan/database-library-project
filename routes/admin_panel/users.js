@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const requireAuth = require('../../public/scripts/requireAuth')
 
 const uzytkownicy = [
   {
@@ -42,7 +43,7 @@ const uzytkownicy = [
 
 
 router.get("/", (req, res) => {
-  res.render("admin_views/users", { title: "Kategorie", cssFile: 'admin_users.css', uzytkownicy });
+  res.render("admin_views/users", requireAuth, { title: "Kategorie", cssFile: 'admin_users.css', uzytkownicy });
 });
 
 module.exports = router;

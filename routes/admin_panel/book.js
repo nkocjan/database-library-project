@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const requireAuth = require('../../public/scripts/requireAuth')
+
 const ksiazki = [
   {
     tytul: 'W pustyni i w puszczy',
@@ -56,7 +58,7 @@ const kategorie = [
   { id: 5, nazwa: 'Biografia' },
 ];
 
-router.get("/", (req, res) => {
+router.get("/",requireAuth, (req, res) => {
   res.render("admin_views/book", { title: "Książki", cssFile: 'admin_book.css', ksiazki: ksiazki, kategorie: kategorie });
 });
 

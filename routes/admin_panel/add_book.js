@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const requireAuth = require('../../public/scripts/requireAuth')
 
 const autorzy = [
   { id: 1, imie: 'Henryk', nazwisko: 'Sienkiewicz' },
@@ -19,7 +20,7 @@ const biblioteki = [
   { id: 3, miejscowosc: 'Wrocław' },
 ];
 
-router.get("/", (req, res) => {
+router.get("/", requireAuth, (req, res) => {
   res.render("admin_views/add_book", { title: "Dodaj książkę", cssFile: 'admin_add_book.css', autorzy, kategorie, biblioteki });
 });
 

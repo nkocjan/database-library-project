@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const requireAuth = require('../../public/scripts/requireAuth')
 
 const kategorie = [
   {
@@ -46,7 +47,7 @@ const kategorie = [
 
 
 router.get("/", (req, res) => {
-  res.render("admin_views/category", { title: "Kategorie", cssFile: 'admin_category.css', kategorie: kategorie });
+  res.render("admin_views/category", requireAuth, { title: "Kategorie", cssFile: 'admin_category.css', kategorie: kategorie });
 });
 
 module.exports = router;

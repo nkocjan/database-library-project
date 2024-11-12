@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-// Przykładowe dane autorów
+const requireAuth = require('../../public/scripts/requireAuth')
+
 const authors = [
   { firstName: 'Jan', lastName: 'Kowalski', nationality: 'Polska', bookCount: 5 },
   { firstName: 'Anna', lastName: 'Nowak', nationality: 'Polska', bookCount: 3 },
@@ -9,7 +10,7 @@ const authors = [
   { firstName: 'Nina', lastName: 'Ivanova', nationality: 'Rosja', bookCount: 4 },
 ];
 
-router.get("/", (req, res) => {
+router.get("/", requireAuth, (req, res) => {
   res.render("admin_views/author", { title: "Autorzy", cssFile: 'admin_author.css', autorzy: authors });
 });
 
