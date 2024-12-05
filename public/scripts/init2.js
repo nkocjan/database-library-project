@@ -33,7 +33,6 @@ async function initializeDataBase() {
     `);
     console.log("Usunięto wszystkie tabele");
 
-    // Tworzenie tabel
     await client.query(`
   CREATE TABLE autor (
     autor_id SERIAL PRIMARY KEY,

@@ -24,9 +24,6 @@ const wypozyczKsiazke = async (
       nr_karty_bibliotecznej,
     ]);
 
-    console.log(userResult);
-    console.log(imie, nazwisko, nr_karty_bibliotecznej);
-
     if (userResult.rowCount === 0) {
       return {
         title: "Error",

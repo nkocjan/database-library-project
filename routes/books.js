@@ -83,8 +83,6 @@ router.post("/wypozycz", async (req, res) => {
       parseInt(wypozycz_biblioteke, 10)
     );
 
-    console.log(result);
-
     const ksiazkiResult = await pool.query(
       "SELECT * FROM project.widok_ksiazki"
     );

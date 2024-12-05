@@ -140,8 +140,7 @@ router.post("/egzemplarze", requireAuth, async (req, res) => {
     }
 
     const ksiazka_id = bookResult.rows[0].ksiazka_id;
-
-    // Dodanie egzemplarzy
+    
     const insertEgzemplarzQuery = `
       INSERT INTO project.egzemplarz (ksiazka_id, biblioteka_id, stan, data_nabycia)
       VALUES ($1, $2, 'Nowy', CURRENT_DATE)

@@ -46,7 +46,7 @@ async function registerValidate({ login, password, email, phone, biblioteki }) {
     }
   }
 
-  const phoneDigits = phone.replace(/\s/g, ""); // Usunięcie spacji
+  const phoneDigits = phone.replace(/\s/g, "");
   const phoneRegex = /^[0-9]{9}$/;
   if (!phoneRegex.test(phoneDigits)) {
     toast.isOk = false;
