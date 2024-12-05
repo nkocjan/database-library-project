@@ -2,38 +2,65 @@
 <html lang="pl">
   <%- include('../templates/header') %>
   <body>
-    <%- include('../templates/navbar') %>
+    <%- include('../templates/navbar') %><%- include('../templates/toast') %>
     <div class="container-lg">
       <div class="row">
         <div class="col-3 sidebar-menu">
-          Menu: 
+          Menu:
           <ul>
-            <li class="sidebar-menu-item"><a href="/admin/book">Lista książek</a></li>
-            <li class="sidebar-menu-item"><a href="/admin/author">Lista autorów</a></li>
-            <li class="sidebar-menu-item"><a href="/admin/category">Kategorie</a></li>
-            <li class="sidebar-menu-item"><a href="/admin/users">Lista użytkowników</a></li>
-            <li class="sidebar-menu-item"><a href="/admin/add-book">Dodaj książkę</a></li>
-            <li class="sidebar-menu-item" style="background-color: wheat;"><a href="/admin/add-author">Dodaj autora</a></li>
-            <li class="sidebar-menu-item"><a href="/admin/add-user">Dodaj nowego użytkownika</a></li>
+            <li class="sidebar-menu-item">
+              <a href="/admin/book">Lista książek</a>
+            </li>
+            <li class="sidebar-menu-item">
+              <a href="/admin/author">Lista autorów</a>
+            </li>
+            <li class="sidebar-menu-item">
+              <a href="/admin/category">Kategorie</a>
+            </li>
+            <li class="sidebar-menu-item">
+              <a href="/admin/users">Lista użytkowników</a>
+            </li>
+            <li class="sidebar-menu-item">
+              <a href="/admin/add-book">Dodaj książkę</a>
+            </li>
+            <li
+              class="sidebar-menu-item"
+              style="background-color: wheat">
+              <a href="/admin/add-author">Dodaj autora</a>
+            </li>
+            <li class="sidebar-menu-item">
+              <a href="/admin/add-user">Dodaj nowego użytkownika</a>
+            </li>
             <li class="sidebar-menu-item"><a href="/logout">Wyloguj się</a></li>
           </ul>
-        </div>        
+        </div>
         <div class="col-9 login-box">
-          <form>
+          <form
+            action="admin/add_author"
+            method="post">
             <div class="row">
               <div class="col-12 mt-4">
                 <label for="imie">Podaj imię</label>
-                <input type="text" id="imie" name="imie">
+                <input
+                  type="text"
+                  id="imie"
+                  name="imie" />
               </div>
 
               <div class="col-12 mt-4">
-                <label for="nazwisko">Podaj nazwsiko</label>
-                <input type="text" id="nazwsiko" name="nazwsiko">
+                <label for="nazwisko">Podaj nazwisko</label>
+                <input
+                  type="text"
+                  id="nazwisko"
+                  name="nazwisko" />
               </div>
 
               <div class="col-12 mt-4">
                 <label>Podaj narodowość</label>
-                <input type="text" id="narodowosc" name="narodowosc">
+                <input
+                  type="text"
+                  id="narodowosc"
+                  name="narodowosc" />
               </div>
 
               <div class="col-12 mt-4">

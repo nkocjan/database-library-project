@@ -2,7 +2,7 @@
 <html lang="pl">
   <%- include('../templates/header') %>
   <body>
-    <%- include('../templates/navbar') %>
+    <%- include('../templates/navbar') %><%- include('../templates/toast') %>
     <div class="container-lg">
       <div class="row">
         <div class="col-3 sidebar-menu">
@@ -18,7 +18,10 @@
             <li class="sidebar-menu-item"><a href="/logout">Wyloguj się</a></li>
           </ul>
         </div>        
-        <div class="col-9"></div>
+        <div class="col-9">
+          <h1>Witaj <%= name%></h1>
+          <p></p>
+        </div>
     </div>
   </body>
 </html>

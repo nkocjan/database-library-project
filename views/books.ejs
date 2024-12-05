@@ -2,53 +2,82 @@
 <html lang="pl">
   <%- include('templates/header') %>
   <body>
-    <%- include('templates/navbar') %>
+    <%- include('templates/navbar') %><%- include('templates/toast') %>
     <div class="container-lg mt-5">
       <div class="row">
         <div class="col-9 authors-table">
           <div class="col-12 filter-section">
-            <form class="filter-form">
+            <form
+              class="filter-form"
+              action="/books"
+              method="post">
               <div class="filter-inputs">
-                <input type="text" placeholder="Tytuł" id="filtr_tytul" name="filtr_tytul">
-                <input type="text" placeholder="Autor" id="filtr_autor" name="filtr_autor">
+                <input
+                  type="text"
+                  placeholder="Tytuł"
+                  id="filtr_tytul"
+                  name="filtr_tytul" />
+                <input
+                  type="text"
+                  placeholder="Autor"
+                  id="filtr_autor"
+                  name="filtr_autor" />
               </div>
-          
+
               <div class="filter-checkboxes">
                 <h5 class="filter-label">Kategorie:</h5>
                 <% kategorie.forEach(kategoria => { %>
-                  <div class="checkbox-item">
-                    <input type="checkbox" id="kategoria_<%= kategoria.id %>" name="kategorie" value="<%= kategoria.id %>">
-                    <label for="kategoria_<%= kategoria.id %>"><%= kategoria.nazwa %></label>
-                  </div>
+                <div class="checkbox-item">
+                  <input
+                    type="checkbox"
+                    id="kategoria_<%= kategoria.nazwa %>"
+                    name="kategorie"
+                    value="<%= kategoria.nazwa %>" />
+                  <label for="kategoria_<%= kategoria.nazwa %>">
+                    <%= kategoria.nazwa %>
+                  </label>
+                </div>
                 <% }) %>
               </div>
-          
+
+              <div class="filter-checkboxes">
+                <h5 class="filter-label">Biblioteki:</h5>
+                <% biblioteki.forEach(biblioteka => { %>
+                <div class="checkbox-item">
+                  <input
+                    type="checkbox"
+                    id="biblioteka<%= biblioteka.miejscowosc %>"
+                    name="biblioteki"
+                    value="<%= biblioteka.miejscowosc %>" />
+                  <label for="biblioteka<%= biblioteka.miejscowosc %>">
+                    <%= biblioteka.miejscowosc %>
+                  </label>
+                </div>
+                <% }) %>
+              </div>
+              <br />
+
               <div class="filter-sorting">
                 <label for="sortowanie">Sortuj według:</label>
-                <select id="sortowanie" name="sortowanie">
+                <select
+                  id="sortowanie"
+                  name="sortowanie">
                   <option value="tytul">Tytuł</option>
                   <option value="autor">Autor</option>
                   <option value="rok_wydania">Rok wydania</option>
                   <option value="kategoria">Kategoria</option>
+                  <option value="biblioteka">Biblioteka</option>
                 </select>
               </div>
-          
-              <div class="filter-availability">
-                <label>Wyświetl tylko dostępne:</label>
-                <label>
-                  <input type="radio" name="dostepne" value="tak"> Tak
-                </label>
-                <label>
-                  <input type="radio" name="dostepne" value="nie" checked> Nie
-                </label>
-              </div>
-          
+
               <div class="filter-button">
                 <button type="submit">Filtruj książki</button>
               </div>
             </form>
           </div>
-          <table border="1" class="tabelka">
+          <table
+            border="1"
+            class="tabelka">
             <thead>
               <tr>
                 <th>Lp.</th>
@@ -63,16 +92,19 @@
             </thead>
             <tbody>
               <% ksiazki.forEach((ksiazka, index) => { %>
-                <tr>
-                  <td><%= index + 1 %></td>
-                  <td><%= ksiazka.tytul %></td>
-                  <td><%= ksiazka.rok_wydania %></td>
-                  <td><%= ksiazka.kategoria %></td>
-                  <td><%= ksiazka.autor %></td>
-                  <td><%= ksiazka.dostepne %> / <%= ksiazka.wszystkie %></td>
-                  <td><%= ksiazka.biblioteka %></td>
-                  <td><%= ksiazka.code %></td>
-                </tr>
+              <tr>
+                <td><%= index + 1 %></td>
+                <td><%= ksiazka.tytul %></td>
+                <td><%= ksiazka.rok_wydania %></td>
+                <td><%= ksiazka.kategoria %></td>
+                <td><%= ksiazka.autor %></td>
+                <td>
+                  <%= ksiazka.ilosc_dostepnych %> / <%= ksiazka.ilosc_wszystkich
+                  %>
+                </td>
+                <td><%= ksiazka.biblioteka %></td>
+                <td><%= ksiazka.kod %></td>
+              </tr>
               <% }) %>
             </tbody>
           </table>
@@ -80,78 +112,165 @@
         <div class="col-3">
           <div class="row take-box">
             <h3>Wypożycz książkę</h3>
-            <form>
+            <form
+              action="/books/wypozycz"
+              method="post">
               <div class="row">
                 <div class="col-12 mt-4">
-                  <label for="imie">Podaj imię</label> <br/>
-                  <input type="text" id="imie" name="imie">
-                </div>
-  
-                <div class="col-12 mt-4">
-                  <label for="nazwisko">Podaj nazwsiko</label><br/>
-                  <input type="text" id="nazwsiko" name="nazwsiko">
-                </div>
-  
-                <div class="col-12 mt-4">
-                  <label>Podaj numer karty bibliotecznej</label><br/>
-                  <input type="text" id="nr_karty_bibliotecznej" name="nr_karty_bibliotecznej">
+                  <label for="imie">Podaj imię</label>
+                  <br />
+                  <input
+                    type="text"
+                    id="imie"
+                    name="imie" />
                 </div>
 
                 <div class="col-12 mt-4">
-                  <label>Podaj kod książki</label><br/>
-                  <input type="text" id="kod_ksiazki" name="kod_ksiazki">
+                  <label for="nazwisko">Podaj nazwisko</label>
+                  <br />
+                  <input
+                    type="text"
+                    id="nazwisko"
+                    name="nazwisko" />
                 </div>
-  
+
+                <div class="col-12 mt-4">
+                  <label>Podaj numer karty bibliotecznej</label>
+                  <br />
+                  <input
+                    type="text"
+                    id="nr_karty_bibliotecznej"
+                    name="nr_karty_bibliotecznej" />
+                </div>
+
+                <div class="col-12 mt-4">
+                  <label>Podaj kod książki</label>
+                  <br />
+                  <input
+                    type="text"
+                    id="kod_ksiazki"
+                    name="kod_ksiazki" />
+                </div>
+
+                <div class="col-12 mt-4">
+                  <label for="wypozycz_biblioteke">Wybierz bibliotekę</label>
+                  <select
+                    id="wypozycz_biblioteke"
+                    name="wypozycz_biblioteke">
+                    <% biblioteki.forEach(biblioteka => { %>
+                    <option value="<%= biblioteka.biblioteka_id %>">
+                      <%= biblioteka.miejscowosc %>
+                    </option>
+                    <% }) %>
+                  </select>
+                </div>
+
                 <div class="col-12 mt-4 mb-4">
                   <button type="submit">Zatwierdź</button>
                 </div>
               </div>
             </form>
-              <button type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">Wyświetl moje wypożyczenia</button>
+            <button
+              type="submit"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal">
+              Wyświetl moje wypożyczenia
+            </button>
           </div>
         </div>
       </div>
     </div>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <form>
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Podaj swoje dane</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form
+            action="/wypozyczenia"
+            method="post">
+            <div class="modal-header">
+              <h5
+                class="modal-title"
+                id="exampleModalLabel">
+                Podaj swoje dane
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"></button>
+            </div>
 
-        <div class="modal-body">
-            <label for="zobacz_wypozyczenia_name">Podaj imię</label>
-            <input type="text" name="zobacz_wypozyczenia_name" id="zobacz_wypozyczenia_name"><br/><br/>
+            <div class="modal-body">
+              <label for="zobacz_wypozyczenia_imie">Podaj imię</label>
+              <input
+                required
+                type="text"
+                name="zobacz_wypozyczenia_imie"
+                id="zobacz_wypozyczenia_imie" />
+              <br />
+              <br />
 
-            <label for="zobacz_wypozyczenia_nazwisko">Podaj nazwisko</label>
-            <input type="text" id="zobacz_wypozyczenia_nazwisko" name="zobacz_wypozyczenia_nazwisko"><br/><br/>
+              <label for="zobacz_wypozyczenia_nazwisko">Podaj nazwisko</label>
+              <input
+                required
+                type="text"
+                id="zobacz_wypozyczenia_nazwisko"
+                name="zobacz_wypozyczenia_nazwisko" />
+              <br />
+              <br />
 
-            <label for="zobacz_wypozyczenia_data_urodzenia">Podaj datę urodzenia</label>
-            <input type="date" id="zobacz_wypozyczenia_data_urodzenia" name="zobacz_wypozyczenia_data_urodzenia"><br/><br/>
+              <label for="zobacz_wypozyczenia_data_urodzenia">
+                Podaj datę urodzenia
+              </label>
+              <input
+                required
+                type="date"
+                id="zobacz_wypozyczenia_data_urodzenia"
+                name="zobacz_wypozyczenia_data_urodzenia" />
+              <br />
+              <br />
 
-            <label for="zobacz_wypozyczenia_nr_karty">Podaj numer karty bibliotecznej</label>
-            <input type="number" id="zobacz_wypozyczenia_nr_karty" name="zobacz_wypozyczenia_nr_karty"><br/>
-        </div>
+              <label for="zobacz_wypozyczenia_nr_karty">
+                Podaj numer karty bibliotecznej
+              </label>
+              <input
+                required
+                type="number"
+                id="zobacz_wypozyczenia_nr_karty"
+                name="zobacz_wypozyczenia_nr_karty" />
+              <br />
+            </div>
 
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
-          <button type="button" class="btn btn-primary">Pokaż moje wypożyczenia</button>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal">
+                Zamknij
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary">
+                Pokaż moje wypożyczenia
+              </button>
+            </div>
+          </form>
         </div>
       </div>
-    </form>
-  </div>
-</div>
+    </div>
   </body>
   <script>
-    var myModal = document.getElementById('myModal')
-    var myInput = document.getElementById('myInput')
+    var myModal = document.getElementById("myModal");
+    var myInput = document.getElementById("myInput");
 
-    myModal.addEventListener('shown.bs.modal', function () {
-      myInput.focus()
-    })
+    myModal.addEventListener("shown.bs.modal", function () {
+      myInput.focus();
+    });
   </script>
 </html>

@@ -2,29 +2,63 @@
 <html lang="pl">
   <%- include('templates/header') %>
   <body>
-    <%- include('templates/navbar') %>
+    <%- include('templates/navbar') %><%- include('templates/toast') %>
     <div class="container-fluid">
       <div class="row">
         <div class="col-4"></div>
         <div class="col-4 mt-5 register-box">
           <div class="row">
-            <form method="post" action="/register">
+            <form
+              method="post"
+              action="/register">
               <div class="col-12 mt-3">
                 <label for="login">Login</label>
-                <input type="text" id="login" name="login" />
+                <input
+                  type="text"
+                  id="login"
+                  name="login" />
               </div>
+
               <div class="col-12 mt-3">
                 <label for="passwrod">Hasło</label>
-                <input type="password" id="password" name="password" />
+                <input
+                  type="password"
+                  id="password"
+                  name="password" />
               </div>
+
               <div class="col-12 mt-3">
                 <label for="email">E-mail</label>
-                <input type="email" id="email" name="email" />
+                <input
+                  type="email"
+                  id="email"
+                  name="email" />
               </div>
+
               <div class="col-12 mt-3">
                 <label for="phone">Numer telefonu</label>
-                <input type="number" id="phone" name="phone" />
+                <input
+                  type="number"
+                  id="phone"
+                  name="phone" />
               </div>
+
+              <div class="filter-checkboxes">
+                <h5 class="filter-label">Biblioteki:</h5>
+                <% biblioteki.forEach(biblioteka => { %>
+                <div class="checkbox-item">
+                  <input
+                    type="checkbox"
+                    id="biblioteka<%= biblioteka.miejscowosc %>"
+                    name="biblioteki"
+                    value="<%= biblioteka.biblioteka_id %>" />
+                  <label for="biblioteka<%= biblioteka.miejscowosc %>">
+                    <%= biblioteka.miejscowosc %>
+                  </label>
+                </div>
+                <% }) %>
+              </div>
+
               <div class="col-12 mt-3 mb-3">
                 <button type="submit">Zarejestruj administratora</button>
               </div>

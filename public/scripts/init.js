@@ -83,6 +83,12 @@ async function initializeDataBase() {
     await client.query(`INSERT INTO zarzadzanie (biblioteka_id, administrator_id) VALUES (1, 1), (2,1), (3,1), (4,1), (5,1)`)
     console.log('Przypisano administratora do bibliotek');
 
+    await client.query(`CREATE VIEW project.widok_ksiazki AS SELECT ks.ksiazka_id AS ksiazka_id, ks.tytul AS tytul, ks.rok_wydania AS rok_wydania, kat.nazwa AS kategoria, CONCAT(au.imie, ' ', au.nazwisko) AS autor, mag.ilosc_dostepnych AS dostepne, mag.ilosc_wszystkich AS wszystkie, bib.miejscowosc AS biblioteka, ks.kod AS kod FROM ksiazka ks JOIN kategoria kat ON ks.kategoria_id = kat.kategoria_id JOIN ksiazka_autor ka ON ks.ksiazka_id = ka.ksiazka_id JOIN autor au ON ka.autor_id = au.autor_id JOIN magazyn mag ON ks.ksiazka_id = mag.ksiazka_id JOIN biblioteka bib ON mag.biblioteka_id = bib.biblioteka_id;`);
+    console.log('Utworzono widok dla książek');    
+
+    await client.query(`CREATE VIEW project.widok_wypozyczen AS SELECT ks.tytul AS tytul, kat.nazwa AS kategoria, CONCAT(au.imie, ' ', au.nazwisko) AS autor, bib.miejscowosc AS biblioteka, ks.kod AS kod, wyp.start AS start, wyp.koniec AS koniec, wyp.zwrot AS zwrot, uz.nr_karty_bibliotecznej AS numer_karty_bibliotecznej FROM project.wypozyczenie wyp JOIN project.ksiazka ks ON wyp.ksiazka_id = ks.ksiazka_id JOIN project.kategoria kat ON ks.kategoria_id = kat.kategoria_id JOIN project.ksiazka_autor ka ON ks.ksiazka_id = ka.ksiazka_id JOIN project.autor au ON ka.autor_id = au.autor_id JOIN project.magazyn mag ON ks.ksiazka_id = mag.ksiazka_id JOIN project.biblioteka bib ON mag.biblioteka_id = bib.biblioteka_id JOIN project.uzytkownik uz ON wyp.uzytkownik_id = uz.uzytkownik_id;`);
+    console.log('Utworzono widok dla wypożyczeń');
+
     await client.query('COMMIT');
   }catch(err) {
     await client.query('ROLLBACK');

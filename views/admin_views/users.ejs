@@ -1,59 +1,49 @@
-</html>
 <!DOCTYPE html>
 <html lang="pl">
   <%- include('../templates/header') %>
   <body>
-    <%- include('../templates/navbar') %>
+    <%- include('../templates/navbar') %><%- include('../templates/toast') %>
     <div class="container-lg">
       <div class="row">
         <div class="col-3 sidebar-menu">
-          Menu: 
+          Menu:
           <ul>
-            <li class="sidebar-menu-item"><a href="/admin/book">Lista książek</a></li>
-            <li class="sidebar-menu-item"><a href="/admin/author">Lista autorów</a></li>
-            <li class="sidebar-menu-item"><a href="/admin/category">Kategorie</a></li>
-            <li class="sidebar-menu-item" style="background-color: wheat;"><a href="/admin/users">Lista użytkowników</a></li>
-            <li class="sidebar-menu-item"><a href="/admin/add-book">Dodaj książkę</a></li>
-            <li class="sidebar-menu-item"><a href="/admin/add-author">Dodaj autora</a></li>
-            <li class="sidebar-menu-item"><a href="/admin/add-user">Dodaj nowego użytkownika</a></li>
+            <li class="sidebar-menu-item">
+              <a href="/admin/book">Lista książek</a>
+            </li>
+            <li class="sidebar-menu-item">
+              <a href="/admin/author">Lista autorów</a>
+            </li>
+            <li class="sidebar-menu-item">
+              <a href="/admin/category">Kategorie</a>
+            </li>
+            <li
+              class="sidebar-menu-item"
+              style="background-color: wheat">
+              <a href="/admin/users">Lista użytkowników</a>
+            </li>
+            <li class="sidebar-menu-item">
+              <a href="/admin/add-book">Dodaj książkę</a>
+            </li>
+            <li class="sidebar-menu-item">
+              <a href="/admin/add-author">Dodaj autora</a>
+            </li>
+            <li class="sidebar-menu-item">
+              <a href="/admin/add-user">Dodaj nowego użytkownika</a>
+            </li>
             <li class="sidebar-menu-item"><a href="/logout">Wyloguj się</a></li>
           </ul>
-        </div>        
+        </div>
         <div class="col-9">
           <div class="row">
             <div class="col-12">
               <h3>Lista użytkowników do zarządzania</h3>
             </div>
-            <div class="col-12 filter-section">
-              <form class="filter-form">
-                <div class="filter-inputs">
-                  <input type="text" placeholder="Imię" id="filtr_imie" name="filtr_imie">
-                  <input type="text" placeholder="Nazwisko" id="filtr_nazwisko" name="filtr_nazwisko">
-                  <input type="text" placeholder="Nr karty" id="filtr_numer_karty" name="filtr_numer_karty">
-                  <input type="text" placeholder="Min wypożyczeń" id="filtr_min_wypozyczen" name="filtr_min_wypozyczen">
-                  <input type="text" placeholder="Max wypożyczeń" id="filtr_max_wypozyczen" name="filtr_max_wypozyczen">
-                  <input type="date" placeholder="Urodzony po" id="filtr_urodzony_po" name="filtr_urodzony_po">
-                  <input type="date" placeholder="Urodzony przed" id="filtr_urodzony_przed" name="filtr_urodzony_przed">
-                </div>
-            
-                <div class="filter-sorting">
-                  <label for="sortowanie">Sortuj według:</label>
-                  <select id="sortowanie" name="sortowanie">
-                    <option value="imie">Imię</option>
-                    <option value="nazwisko">Nazwisko</option>
-                    <option value="data_urodzenia">Data urodzenia</option>
-                    <option value="ilosc_wypozyczen">Ilość wypożyczeń</option>
-                  </select>
-                </div>
-            
-                <div class="filter-button">
-                  <button type="submit">Filtruj autorów</button>
-                </div>
-              </form>
-            </div>
-            
+
             <div class="col-12 authors-table">
-              <table border="1" class="tabelka">
+              <table
+                border="1"
+                class="tabelka">
                 <thead>
                   <tr>
                     <th>Lp.</th>
@@ -68,21 +58,258 @@
                 </thead>
                 <tbody>
                   <% uzytkownicy.forEach((uzytkownik, index) => { %>
-                    <tr>
-                      <td><%= index + 1 %></td>
-                      <td><%= uzytkownik.imie %></td>
-                      <td><%= uzytkownik.nazwisko %></td>
-                      <td><%= uzytkownik.data_urodzenia %></td>
-                      <td><%= uzytkownik.card %></td>
-                      <td><button>Edytuj</button></td>
-                      <td><button>Usuń</button></td>
-                      <td><button>Zobacz wypożyczenia</button></td>
-                    </tr>
+                  <tr>
+                    <td><%= index + 1 %></td>
+                    <td><%= uzytkownik.imie %></td>
+                    <td><%= uzytkownik.nazwisko %></td>
+                    <td><%= uzytkownik.data_urodzenia %></td>
+                    <td><%= uzytkownik.nr_karty_bibliotecznej %></td>
+                    <td>
+                      <button
+                        class="edit-user-btn"
+                        data-imie="<%= uzytkownik.imie %>"
+                        data-nazwisko="<%= uzytkownik.nazwisko %>"
+                        data-data-urodzenia="<%= uzytkownik.data_urodzenia %>"
+                        data-uzytkownik_id="<%= uzytkownik.uzytkownik_id %>"
+                        data-nr-karty="<%= uzytkownik.nr_karty_bibliotecznej %>"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
+                        Edytuj
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        class="delete-user-btn"
+                        data-uzytkownik_id="<%= uzytkownik.uzytkownik_id %>"
+                        data-bs-toggle="modal"
+                        data-bs-target="#deleteModal">
+                        Usuń
+                      </button>
+                    </td>
+                    <td>
+                      <form
+                        action="/wypozyczenia"
+                        method="post">
+                        <input
+                          required
+                          type="hidden"
+                          value="<%= uzytkownik.imie %>"
+                          name="zobacz_wypozyczenia_imie"
+                          id="zobacz_wypozyczenia_imie" />
+                        <input
+                          required
+                          type="hidden"
+                          value="<%= uzytkownik.nazwisko %>"
+                          name="zobacz_wypozyczenia_nazwisko"
+                          id="zobacz_wypozyczenia_nazwisko" />
+                        <input
+                          required
+                          type="hidden"
+                          value="<%= uzytkownik.data_urodzenia %>"
+                          name="zobacz_wypozyczenia_data_urodzenia"
+                          id="zobacz_wypozyczenia_data_urodzenia" />
+                        <input
+                          required
+                          type="hidden"
+                          value="<%= uzytkownik.nr_karty_bibliotecznej %>"
+                          name="zobacz_wypozyczenia_nr_karty"
+                          id="zobacz_wypozyczenia_nr_karty" />
+                        <button>Zobacz wypożyczenia</button>
+                      </form>
+                    </td>
+                  </tr>
                   <% }) %>
                 </tbody>
               </table>
             </div>
+          </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form
+            action="/admin/users/edytuj"
+            method="post">
+            <div class="modal-header">
+              <h5
+                class="modal-title"
+                id="exampleModalLabel">
+                Zmień dane
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+              <label for="imie">Podaj imię</label>
+              <input
+                required
+                type="text"
+                name="imie"
+                id="imie" />
+              <br />
+              <br />
+
+              <label for="nazwisko">Podaj nazwisko</label>
+              <input
+                required
+                type="text"
+                id="nazwisko"
+                name="nazwisko" />
+              <br />
+              <br />
+
+              <label for="data_urodzenia">Podaj datę urodzenia</label>
+              <input
+                required
+                type="date"
+                id="data_urodzenia"
+                name="data_urodzenia" />
+              <br />
+              <br />
+            </div>
+            <input
+              type="hidden"
+              id="uzytkownik_id"
+              name="uzytkownik_id" />
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal">
+                Zamknij
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary">
+                Zatwierdź
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal potwierdzenia usunięcia -->
+    <div
+      class="modal fade"
+      id="deleteModal"
+      tabindex="-1"
+      aria-labelledby="deleteModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form
+            action="/admin/users/usun"
+            method="post">
+            <div class="modal-header">
+              <h5
+                class="modal-title"
+                id="deleteModalLabel">
+                Usuń użytkownika
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>Czy na pewno chcesz usunąć tego użytkownika?</p>
+              <input
+                type="hidden"
+                id="delete_uzytkownik_id"
+                name="uzytkownik_id" />
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal">
+                Anuluj
+              </button>
+              <button
+                type="submit"
+                class="btn btn-danger">
+                Usuń
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </body>
+  <script>
+    const months = [
+      "stycznia",
+      "lutego",
+      "marca",
+      "kwietnia",
+      "maja",
+      "czerwca",
+      "lipca",
+      "sierpnia",
+      "września",
+      "października",
+      "listopada",
+      "grudnia",
+    ];
+
+    function convertPolishDateToISO(dateString) {
+      const [day, monthName, year] = dateString.split(" ");
+      const month = months.indexOf(monthName) + 1;
+      const formattedMonth = month.toString().padStart(2, "0");
+      const formattedDay = day.padStart(2, "0");
+      return `${year}-${formattedMonth}-${formattedDay}`;
+    }
+
+    document.querySelectorAll(".edit-user-btn").forEach(button => {
+      button.addEventListener("click", event => {
+        const imie = button.getAttribute("data-imie");
+        const nazwisko = button.getAttribute("data-nazwisko");
+        const dataUrodzenia = button.getAttribute("data-data-urodzenia");
+        const uzytkownikId = button.getAttribute("data-uzytkownik_id");
+
+        const formattedDate = convertPolishDateToISO(dataUrodzenia);
+
+        document.getElementById("imie").value = imie;
+        document.getElementById("nazwisko").value = nazwisko;
+        document.getElementById("data_urodzenia").value = formattedDate;
+        document.getElementById("uzytkownik_id").value = uzytkownikId;
+      });
+    });
+
+    document.querySelectorAll(".delete-user-btn").forEach(button => {
+      button.addEventListener("click", event => {
+        const uzytkownikId = button.getAttribute("data-uzytkownik_id");
+
+        document.getElementById("delete_uzytkownik_id").value = uzytkownikId;
+      });
+    });
+
+    document.querySelectorAll("form[action='/wypozyczenia']").forEach(form => {
+      form.addEventListener("submit", event => {
+        const dataUrodzeniaField = form.querySelector(
+          "input[name='zobacz_wypozyczenia_data_urodzenia']"
+        );
+        if (dataUrodzeniaField) {
+          const polishDate = dataUrodzeniaField.value;
+          const isoDate = convertPolishDateToISO(polishDate);
+          dataUrodzeniaField.value = isoDate;
+        }
+      });
+    });
+  </script>
 </html>

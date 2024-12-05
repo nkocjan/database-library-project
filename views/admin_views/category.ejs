@@ -3,7 +3,7 @@
 <html lang="pl">
   <%- include('../templates/header') %>
   <body>
-    <%- include('../templates/navbar') %>
+    <%- include('../templates/navbar') %><%- include('../templates/toast') %>
     <div class="container-lg">
       <div class="row">
         <div class="col-3 sidebar-menu">
@@ -32,17 +32,15 @@
                     <th>Nazwa kategorii</th>
                     <th>Ilość książek</th>
                     <th>Najpopularniejszy autor</th>
-                    <th>Usuń kategorię</th>
                   </tr>
                 </thead>
                 <tbody>
                   <% kategorie.forEach((kategoria, index) => { %>
                     <tr>
                       <td><%= index + 1 %></td>
-                      <td><%= kategoria.nazwa %></td>
-                      <td><%= kategoria.ilosc %></td>
-                      <td><%= kategoria.autor %></td>
-                      <td><button>Delete</button></td>
+                      <td><%= kategoria.kategoria %></td>
+                      <td><%= kategoria.ilosc_ksiazek %></td>
+                      <td><%= kategoria.najpopularniejszy_autor %></td>
                     </tr>
                   <% }) %>
                 </tbody>
@@ -50,9 +48,9 @@
             </div>
             <div class="col-4">
               <h3 style="text-align: center;">Utwórz kategorie</h3>
-              <form>
+              <form action="/admin/category" method="post">
                 <label for="name">Nazwa</label>
-                <input type="text" id="name" name="name">
+                <input type="text" id="name" name="name" required>
                 <button type="submit">Zatwierdź</button>
               </form>
             </div>

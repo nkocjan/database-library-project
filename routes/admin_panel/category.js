@@ -1,53 +1,115 @@
 const express = require("express");
 const router = express.Router();
-const requireAuth = require('../../public/scripts/requireAuth')
+const requireAuth = require("../../public/scripts/requireAuth");
+const pool = require("../../db");
 
-const kategorie = [
-  {
-    nazwa: 'Przygodowa',
-    ilosc: 120,
-    autor: 'Henryk Sienkiewicz'
-  },
-  {
-    nazwa: 'Dramat',
-    ilosc: 85,
-    autor: 'William Shakespeare'
-  },
-  {
-    nazwa: 'Fantasy',
-    ilosc: 200,
-    autor: 'J.R.R. Tolkien'
-  },
-  {
-    nazwa: 'Sci-Fi',
-    ilosc: 150,
-    autor: 'Isaac Asimov'
-  },
-  {
-    nazwa: 'Biografia',
-    ilosc: 65,
-    autor: 'Walter Isaacson'
-  },
-  {
-    nazwa: 'Kryminał',
-    ilosc: 95,
-    autor: 'Agatha Christie'
-  },
-  {
-    nazwa: 'Horror',
-    ilosc: 70,
-    autor: 'Stephen King'
-  },
-  {
-    nazwa: 'Romans',
-    ilosc: 130,
-    autor: 'Nicholas Sparks'
+router.get("/", requireAuth, async (req, res) => {
+  try {
+    const categoriesResult = await pool.query(`SELECT 
+    k.nazwa AS kategoria,
+    COUNT(DISTINCT ks.ksiazka_id) AS ilosc_ksiazek,
+    (SELECT CONCAT(a.imie, ' ', a.nazwisko)
+     FROM project.ksiazka_autor ka
+     JOIN project.autor a ON ka.autor_id = a.autor_id
+     WHERE ka.ksiazka_id IN (
+         SELECT ks.ksiazka_id
+         FROM project.ksiazka ks
+         WHERE ks.kategoria_id = k.kategoria_id
+     )
+     GROUP BY a.autor_id
+     ORDER BY COUNT(ka.ksiazka_id) DESC
+     LIMIT 1) AS najpopularniejszy_autor
+    FROM 
+        project.kategoria k
+    LEFT JOIN 
+        project.ksiazka ks ON k.kategoria_id = ks.kategoria_id
+    GROUP BY 
+        k.kategoria_id
+    ORDER BY 
+        k.nazwa;
+    `);
+    const categories = categoriesResult.rows;
+    res.render("admin_views/category", {
+      title: "Kategorie",
+      cssFile: "admin_category.css",
+      kategorie: categories,
+    });
+  } catch (err) {
+    res.render("admin_views/category", {
+      title: "Kategorie",
+      cssFile: "admin_category.css",
+      kategorie: [],
+      toast: {
+        title: "Error",
+        body: `Wystapił błąd ${err}`,
+      },
+    });
   }
-];
+});
 
+router.post("/", requireAuth, async (req, res) => {
+  const { name } = req.body;
 
-router.get("/", (req, res) => {
-  res.render("admin_views/category", requireAuth, { title: "Kategorie", cssFile: 'admin_category.css', kategorie: kategorie });
+  if (!name || name.trim().length === 0) {
+    return res.render("admin_views/category", {
+      title: "Kategorie",
+      cssFile: "admin_category.css",
+      kategorie: [],
+      toast: {
+        title: "Error",
+        body: "Nazwa kategorii nie może być pusta.",
+      },
+    });
+  }
+
+  try {
+    const query = "INSERT INTO project.kategoria (nazwa) VALUES ($1)";
+    await pool.query(query, [name]);
+
+    const categoriesResult = await pool.query(`SELECT 
+      k.nazwa AS kategoria,
+      COUNT(DISTINCT ks.ksiazka_id) AS ilosc_ksiazek,
+      (SELECT CONCAT(a.imie, ' ', a.nazwisko)
+       FROM project.ksiazka_autor ka
+       JOIN project.autor a ON ka.autor_id = a.autor_id
+       WHERE ka.ksiazka_id IN (
+           SELECT ks.ksiazka_id
+           FROM project.ksiazka ks
+           WHERE ks.kategoria_id = k.kategoria_id
+       )
+       GROUP BY a.autor_id
+       ORDER BY COUNT(ka.ksiazka_id) DESC
+       LIMIT 1) AS najpopularniejszy_autor
+      FROM 
+          project.kategoria k
+      LEFT JOIN 
+          project.ksiazka ks ON k.kategoria_id = ks.kategoria_id
+      GROUP BY 
+          k.kategoria_id
+      ORDER BY 
+          k.nazwa;
+      `);
+    const categories = categoriesResult.rows;
+    res.render("admin_views/category", {
+      title: "Kategorie",
+      cssFile: "admin_category.css",
+      kategorie: categories,
+      toast: {
+        title: "Sukces",
+        body: `Poprawnie dodano kategorię`,
+      },
+    });
+  } catch (err) {
+    res.render("admin_views/category", {
+      title: "Kategorie",
+      cssFile: "admin_category.css",
+      kategorie: [],
+      toast: {
+        title: "Error",
+        body: `Wystapił błąd ${err}`,
+      },
+    });
+  }
 });
 
 module.exports = router;

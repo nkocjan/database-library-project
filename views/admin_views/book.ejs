@@ -3,7 +3,7 @@
 <html lang="pl">
   <%- include('../templates/header') %>
   <body>
-    <%- include('../templates/navbar') %>
+    <%- include('../templates/navbar') %><%- include('../templates/toast') %>
     <div class="container-lg">
       <div class="row">
         <div class="col-3 sidebar-menu">
@@ -25,46 +25,73 @@
               <h3>Lista książek</h3>
             </div>
             <div class="col-12 filter-section">
-              <form class="filter-form">
-                <div class="filter-inputs">
-                  <input type="text" placeholder="Tytuł" id="filtr_tytul" name="filtr_tytul">
-                  <input type="text" placeholder="Autor" id="filtr_autor" name="filtr_autor">
-                </div>
-            
-                <div class="filter-checkboxes">
-                  <h5 class="filter-label">Kategorie:</h5>
-                  <% kategorie.forEach(kategoria => { %>
-                    <div class="checkbox-item">
-                      <input type="checkbox" id="kategoria_<%= kategoria.id %>" name="kategorie" value="<%= kategoria.id %>">
-                      <label for="kategoria_<%= kategoria.id %>"><%= kategoria.nazwa %></label>
-                    </div>
-                  <% }) %>
-                </div>
-            
-                <div class="filter-sorting">
-                  <label for="sortowanie">Sortuj według:</label>
-                  <select id="sortowanie" name="sortowanie">
-                    <option value="tytul">Tytuł</option>
-                    <option value="autor">Autor</option>
-                    <option value="rok_wydania">Rok wydania</option>
-                    <option value="kategoria">Kategoria</option>
-                  </select>
-                </div>
-            
-                <div class="filter-availability">
-                  <label>Wyświetl tylko dostępne:</label>
-                  <label>
-                    <input type="radio" name="dostepne" value="tak"> Tak
-                  </label>
-                  <label>
-                    <input type="radio" name="dostepne" value="nie" checked> Nie
+              <form
+              class="filter-form"
+              action="/admin/book"
+              method="post">
+              <div class="filter-inputs">
+                <input
+                  type="text"
+                  placeholder="Tytuł"
+                  id="filtr_tytul"
+                  name="filtr_tytul" />
+                <input
+                  type="text"
+                  placeholder="Autor"
+                  id="filtr_autor"
+                  name="filtr_autor" />
+              </div>
+
+              <div class="filter-checkboxes">
+                <h5 class="filter-label">Kategorie:</h5>
+                <% kategorie.forEach(kategoria => { %>
+                <div class="checkbox-item">
+                  <input
+                    type="checkbox"
+                    id="kategoria_<%= kategoria.nazwa %>"
+                    name="kategorie"
+                    value="<%= kategoria.nazwa %>" />
+                  <label for="kategoria_<%= kategoria.nazwa %>">
+                    <%= kategoria.nazwa %>
                   </label>
                 </div>
-            
-                <div class="filter-button">
-                  <button type="submit">Filtruj książki</button>
+                <% }) %>
+              </div>
+
+              <div class="filter-checkboxes">
+                <h5 class="filter-label">Biblioteki:</h5>
+                <% biblioteki.forEach(biblioteka => { %>
+                <div class="checkbox-item">
+                  <input
+                    type="checkbox"
+                    id="biblioteka<%= biblioteka.miejscowosc %>"
+                    name="biblioteki"
+                    value="<%= biblioteka.miejscowosc %>" />
+                  <label for="biblioteka<%= biblioteka.miejscowosc %>">
+                    <%= biblioteka.miejscowosc %>
+                  </label>
                 </div>
-              </form>
+                <% }) %>
+              </div>
+              <br />
+
+              <div class="filter-sorting">
+                <label for="sortowanie">Sortuj według:</label>
+                <select
+                  id="sortowanie"
+                  name="sortowanie">
+                  <option value="tytul">Tytuł</option>
+                  <option value="autor">Autor</option>
+                  <option value="rok_wydania">Rok wydania</option>
+                  <option value="kategoria">Kategoria</option>
+                  <option value="biblioteka">Biblioteka</option>
+                </select>
+              </div>
+
+              <div class="filter-button">
+                <button type="submit">Filtruj książki</button>
+              </div>
+            </form>
             </div>
             
             <div class="col-12 authors-table">
@@ -88,7 +115,7 @@
                       <td><%= ksiazka.rok_wydania %></td>
                       <td><%= ksiazka.kategoria %></td>
                       <td><%= ksiazka.autor %></td>
-                      <td><%= ksiazka.dostepne %> / <%= ksiazka.wszystkie %></td>
+                      <td><%= ksiazka.ilosc_dostepnych %> / <%= ksiazka.ilosc_wszystkich %></td>
                       <td><%= ksiazka.biblioteka %></td>
                     </tr>
                   <% }) %>

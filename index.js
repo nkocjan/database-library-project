@@ -11,7 +11,10 @@ app.use(session({
   secret: 'secret_password',
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 60000 * 30 }  // Czas wygaśnięcia sesji, np. 1 godzina
+  cookie: {
+    maxAge: 60000 * 30,
+    secure: false
+  }
 }));
 
 app.set("view engine", "ejs");

@@ -2,7 +2,7 @@
 <html lang="pl">
   <%- include('../templates/header') %>
   <body>
-    <%- include('../templates/navbar') %>
+    <%- include('../templates/navbar') %><%- include('../templates/toast') %>
     <div class="container-lg">
       <div class="row">
         <div class="col-3 sidebar-menu">
@@ -19,11 +19,11 @@
           </ul>
         </div>        
         <div class="col-9 login-box">
-          <form>
+          <form action="/admin/add-book" method="post">
             <div class="row">
               <div class="col-12 mt-4">
-                <label>Podaj tytuł</label>
-                <input>
+                <label for="imie">Podaj tytuł</label>
+                <input type="text" name="imie" required>
               </div>
 
               <div class="col-12 mt-4">
@@ -31,7 +31,7 @@
                 <select name="autor" required>
                   <option value="">-- Wybierz autora --</option>
                   <% autorzy.forEach(autor => { %>
-                    <option value="<%= autor.id %>"><%= autor.imie %> <%= autor.nazwisko %></option>
+                    <option value="<%= autor.autor_id %>"><%= autor.imie %> <%= autor.nazwisko %></option>
                   <% }) %>
                 </select>
               </div>
@@ -41,24 +41,14 @@
                 <select name="kategoria" required>
                   <option value="">-- Wybierz kategorię --</option>
                   <% kategorie.forEach(kategoria => { %>
-                    <option value="<%= kategoria.nazwa %>"><%= kategoria.nazwa %></option>
-                  <% }) %>
-                </select>
-              </div>
-              
-              <div class="col-12 mt-4">
-                <label>Wybierz bibliotekę</label>
-                <select name="biblioteka" required>
-                  <option value="">-- Wybierz bibliotekę --</option>
-                  <% biblioteki.forEach(biblioteka => { %>
-                    <option value="<%= biblioteka.id %>"><%= biblioteka.miejscowosc %></option>
+                    <option value="<%= kategoria.kategoria_id %>"><%= kategoria.nazwa %></option>
                   <% }) %>
                 </select>
               </div>
 
               <div class="col-12 mt-4">
                 <label>Podaj rok wydania</label>
-                <input>
+                <input type="date" name="data_wydania" value="data_wydania" required>
               </div>
 
               <div class="col-12 mt-4">
@@ -66,6 +56,35 @@
               </div>
             </div>
           </form>
+          <form action="/admin/add-book/egzemplarze" method="post">
+            <div class="row mt-5">
+              <h3>Zamówienie egzemplarzy</h3>
+              <div class="col-12 mt-4">
+                <label for="kod">Podaj kod książki</label>
+                <input type="text" id="kod" name="kod" required>
+              </div>
+          
+              <div class="col-12 mt-4">
+                <label for="biblioteka">Wybierz bibliotekę</label>
+                <select id="biblioteka" name="biblioteka" required>
+                  <option value="">-- Wybierz bibliotekę --</option>
+                  <% biblioteki.forEach(biblioteka => { %>
+                    <option value="<%= biblioteka.biblioteka_id %>"><%= biblioteka.miejscowosc %></option>
+                  <% }) %>
+                </select>
+              </div>
+          
+              <div class="col-12 mt-4">
+                <label for="ilosc">Podaj ilość zamówionych egzemplarzy</label>
+                <input type="number" id="ilosc" name="ilosc" min="1" required>
+              </div>
+          
+              <div class="col-12 mt-4">
+                <button type="submit">Zamów</button>
+              </div>
+            </div>
+          </form>
+          
         </div>
     </div>
   </body>

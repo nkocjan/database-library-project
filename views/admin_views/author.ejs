@@ -2,7 +2,7 @@
 <html lang="pl">
   <%- include('../templates/header') %>
   <body>
-    <%- include('../templates/navbar') %>
+    <%- include('../templates/navbar') %><%- include('../templates/toast') %>
     <div class="container-lg">
       <div class="row">
         <div class="col-3 sidebar-menu">
@@ -24,13 +24,13 @@
               <h3>Lista autorów</h3>
             </div>
             <div class="col-12 filter-section">
-              <form class="filter-form">
+              <form class="filter-form" action="/admin/author" method="post">
                 <div class="filter-inputs">
                   <input type="text" placeholder="Imię" id="filtr_autor_imie" name="filtr_autor_imie">
                   <input type="text" placeholder="Nazwisko" id="filtr_autor_nazwisko" name="filtr_autor_nazwisko">
                   <input type="text" placeholder="Narodowość" id="filtr_autor_narodowosc" name="filtr_autor_narodowosc">
-                  <input type="text" placeholder="Min książek" id="filtr_autor_min_ksiazek" name="filtr_autor_min_ksiazek">
-                  <input type="text" placeholder="Max książek" id="filtr_autor_max_ksiazek" name="filtr_autor_max_ksiazek">
+                  <input type="number" placeholder="Min książek" id="filtr_autor_min_ksiazek" name="filtr_autor_min_ksiazek">
+                  <input type="number" placeholder="Max książek" id="filtr_autor_max_ksiazek" name="filtr_autor_max_ksiazek">
                 </div>
 
                 <div class="filter-button">
@@ -53,10 +53,10 @@
                   <% autorzy.forEach((autor, index) => { %>
                     <tr>
                       <td><%= index + 1 %></td>
-                      <td><%= autor.firstName %></td>
-                      <td><%= autor.lastName %></td>
-                      <td><%= autor.nationality %></td>
-                      <td><%= autor.bookCount %></td>
+                      <td><%= autor.imie %></td>
+                      <td><%= autor.nazwisko %></td>
+                      <td><%= autor.narodowosc %></td>
+                      <td><%= autor.liczba_ksiazek %></td>
                     </tr>
                   <% }) %>
                 </tbody>
